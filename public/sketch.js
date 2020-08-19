@@ -3,7 +3,7 @@ var value = 30;
 var b = 100;
 var g = 100;
 var r = 100;
-
+const url = 'https://sharedcanvaso.herokuapp.com/' ;//or 'http://localhost:3000';
 var erase_flag = false;
 var clear_flag = false;
 function setup(){
@@ -14,8 +14,7 @@ function setup(){
     document.getElementById("Erase").onclick = eraseCanvas;
     document.getElementById("Draw").onclick = drawCanvas;
     
-
-    socket = io.connect('http://localhost:3000', {reconnect: true});
+    socket = io.connect(url, {reconnect: true});
     socket.on('mouse',(data)=>{
         if(!data.clear)
         {
