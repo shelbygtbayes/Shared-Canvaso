@@ -57,8 +57,8 @@ function ClearCanvas() {
     }
     socket.emit('mouse',data);
 }
-
-function mouseDragged(){
+// mouseDragged
+function touchMoved(){
     var data={
         x : mouseX,
         y : mouseY,
