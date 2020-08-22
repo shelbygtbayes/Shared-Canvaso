@@ -1,20 +1,89 @@
-var socket
 var value = 30;
 var b = 100;
 var g = 100;
 var r = 100;
-const url = 'https://sharedcanvaso.herokuapp.com/' ;//or 'http://localhost:3000';
+const url = 'http://localhost:3000';
 var erase_flag = false;
 var clear_flag = false;
+
+// Client side
+const chartForm = document.getElementById('chat-form');
+const chatMessages = document.querySelector('.chat-messages');
+const roomName = document.getElementById('room-name');
+const userList = document.getElementById('users');
+const {username , room} = Qs.parse(location.search,{
+    ignoreQueryPrefix : true
+});
+//console.log(username , room);
+const socket = io();
+// Send the Joining room info to the server
+socket.emit('JoinRoom' , {username , room});
+// Get room and users
+socket.on('useroomsinfo' , ({room , users})=>{
+    outputRoomName(room);
+    outputUserName(users);
+});
+
+ //     Event name
+// Catch the Message 'Emitted from the server'
+socket.on('message' , message => {
+   
+    outputMessage(message);
+    // Scroll down
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+})
+chartForm.addEventListener('submit' , (e)=>{
+    e.preventDefault();
+    // Get element where id = msg and return it's value
+    const msg = e.target.elements.msg.value;
+    //console.log(msg);
+    // Emit Message to Server
+    socket.emit('chatMessage' , msg);
+    // Clear the Message
+    e.target.elements.msg.value = '';
+    //e.target.elements.msg.focus(); // Cursor waiting for the message
+});
+
+// Message from Server to DOM 
+function outputMessage(message){
+    // Create a DOM element
+    const div = document.createElement('div');
+    // Now add another as message
+    div.classList.add('message');
+    // Define the div
+    div.innerHTML = `
+    <p class="meta">${message.username} <span>${message.time}</span></p>
+    <p class="text">
+        ${message.text}
+    </p>`;
+    // Put the created element in the parent chat-message element
+    document.querySelector('.chat-messages').appendChild(div);
+}
+
+// Add room name to DOM
+function outputRoomName(room){
+    roomName.innerText = room;
+}
+
+// Add users name to DOM
+
+function outputUserName(users){
+    userList.innerHTML = `
+        ${users.map(user => `<li>${user.username}</li>`).join('')}
+    `;
+}
 function setup(){
-    createCanvas(width*14 + 55, height*6);
+    
+    let cnv = createCanvas(width*9, height*6 );
+    //cnv.position(width/4 + 5, height/6 - 7);
+    cnv.parent('sketch-div');
     background(51);
     
     document.getElementById("Clear").onclick = ClearCanvas;
     document.getElementById("Erase").onclick = eraseCanvas;
     document.getElementById("Draw").onclick = drawCanvas;
     
-    socket = io.connect(url, {reconnect: true});
+    //socket = io.connect(url, {reconnect: true});
     socket.on('mouse',(data)=>{
         if(!data.clear)
         {
