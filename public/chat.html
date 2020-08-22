@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/style.css">
+  <script language="javascript" type="text/javascript" src = "https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <title>Shared Canvaso App</title>
+</head>
+<body style="background-image: url('canvas_image.jpg');">
+    <div class="chat-header">
+      <h1>Shared Canvaso</h1>  
+      <a href="index.html" class="btn">Exit</a>
+    </div>
+    <div class="chat-container">
+      <main class="chat-main">
+        <div class="chat-sidebar">
+          <h3><i class="fas fa-comments"></i> Room Name:</h3>
+          <h2 id="room-name">JavaScript</h2>
+          <h3><i class="fas fa-users"></i> Users</h3>
+          <ul id="users">
+          </ul>
+        </div>
+        <div id="sketch-div"></div>
+        <div class="chat-block">
+        <div class="chat-messages">
+        </div>  
+        <div class="chat-form-container">  
+          <form id="chat-form">
+            <input
+              id="msg"
+              type="text"
+              placeholder="Enter Message"
+              required
+              autocomplete="off"
+            />
+            <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+          </form>
+        </div>
+      </div>
+      </main>
+    </div>
+  <footer class="buttons">    
+    <button id="Draw"  class="draw"> Draw </button>
+    <button id="Erase" class="erase"> Erase </button> 
+    <button id="Clear" class="clear"> Clear </button>
+    <div class="slidecontainer">
+        <text class="pointer">Adjust Pointer Width</text>
+        <input type="range" min="10" max="80" value="45" class="slider1" id="pointer_slider">
+        <text id="pointer_slider_value" style="color: aliceblue;"></text>
+    </div>
+    <div class="slidecontainer">
+        <text class="red_slider">Adjust Red color</text>
+        <input type="range" min="0" max="255" value="100" class="slider2" id="red_color_slider">
+        <text id="red_color_slider_value" style="color: aliceblue;"></text>
+    </div>
+    <div class="slidecontainer">
+        <text class="green_slider">Adjust Green color</text>
+        <input type="range" min="0" max="255" value="100" class="slider3" id="green_color_slider">
+        <text id="green_color_slider_value" style="color: aliceblue;"></text>
+    </div>
+    <div class="slidecontainer">
+        <text class="blue_slider">Adjust Blue color</text>
+        <input type="range" min="0" max="255" value="100" class="slider4" id="blue_color_slider">
+        <text id="blue_color_slider_value" style="color: aliceblue;"></text>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="sketch.js"></script>
+  
+</body>
+</html>
