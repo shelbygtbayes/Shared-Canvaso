@@ -11,6 +11,7 @@ const io = socketio(server);
 app.use(express.static(path.join(__dirname , 'public')));
 const botName = 'ChatBot';
 // When Client connects to server
+//app.get('');
 io.on('connection',socket => {
     console.log('New Web Socket connection');
     // When user disconnect
